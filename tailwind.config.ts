@@ -16,8 +16,18 @@ const config: Config = {
       colors: {
         'blue-padrao': '#06AED5',
         'yellow-padrao': '#F0C808',
+        'orange-padrao': '#F34213',
+        'orange-light': '#F5680A',
         'blue-secundario': '#086788',
         light: '#FFF1D0',
+      },
+      screens: {
+        sm: '640px',
+        'sm-xl': '700px',
+        md: '1000px',
+        lg: '1200px',
+        xl: '1500px',
+        '2xl': '2000px',
       },
     },
   },

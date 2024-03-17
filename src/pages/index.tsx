@@ -14,7 +14,7 @@ export default function Home() {
         className={`flex min-h-screen flex-col items-center justify-center p-24 ${noto.className}`}
       >
         <Link href={'/bet'}>
-          <div className='bg-blue-padrao text-3xl cursor-pointer text-white py-16 px-60 shadow-xl hover:shadow-2xl rounded-md'>
+          <div className='bg-blue-secundario text-3xl cursor-pointer text-white py-16 px-60 shadow-xl hover:shadow-2xl rounded-md hover:bg-blue-padrao'>
             Nova Aposta
           </div>
         </Link>
