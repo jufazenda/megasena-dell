@@ -1,15 +1,7 @@
 import { PropsApostas } from '@/Types/Props'
 import React from 'react'
 
-const Apostas = ({
-  nome,
-  cpf,
-  num1,
-  num2,
-  num3,
-  num4,
-  num5,
-}: PropsApostas) => {
+const Apostas = ({ nome, cpf, numeros_apostados }: PropsApostas) => {
   return (
     <div className='flex w-full justify-between flex-col items-center gap-10 '>
       <div className='flex justify-between w-full '>
@@ -19,22 +11,15 @@ const Apostas = ({
         </span>
       </div>
 
-      <div className='flex gap-5 items-center  w-/3'>
-        <span className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white '>
-          {num1}
-        </span>
-        <span className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white '>
-          {num2}
-        </span>
-        <span className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white '>
-          {num3}
-        </span>
-        <span className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white '>
-          {num4}
-        </span>
-        <span className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white '>
-          {num5}
-        </span>
+      <div className='flex gap-5 items-center w-/3'>
+        {numeros_apostados.map((numero, index) => (
+          <span
+            key={index}
+            className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white'
+          >
+            {numero}
+          </span>
+        ))}
       </div>
     </div>
   )
