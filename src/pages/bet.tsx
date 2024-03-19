@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Apostas from './components/Apostas'
 import supabase from './api/supabase'
 import { PropsApostas } from '@/Types/Props'
+import Link from 'next/link'
 
 const noto = Noto_Sans({ subsets: ['latin'] })
 
@@ -199,9 +200,11 @@ const Bet = () => {
             <span className=' flex gap-5 text-white text-4xl font-semibold'>
               {TrevoIconWhite} Apostas Registradas
             </span>
-            <button className='bg-orange-padrao text-white rounded-md py-3 font-bold px-16 hover:shadow-2xl hover:bg-orange-light'>
-              Sortear
-            </button>
+            <Link href={'results'}>
+              <button className='bg-orange-padrao text-white rounded-md py-3 font-bold px-16 hover:shadow-2xl hover:bg-orange-light'>
+                Sortear
+              </button>
+            </Link>
           </div>
 
           {allApostas.length ? (
