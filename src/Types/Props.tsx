@@ -12,3 +12,8 @@ export interface PropsApostas {
   cpf: string
   numeros_apostados: number[]
 }
+
+export interface PropsSorteio {
+  numeros_sorteados: number[]
+  id_vencedores: number
+}
