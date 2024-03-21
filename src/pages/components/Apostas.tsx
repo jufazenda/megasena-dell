@@ -12,14 +12,15 @@ const Apostas = ({ nome, cpf, numeros_apostados }: PropsApostas) => {
       </div>
 
       <div className='flex gap-5 items-center w-/3'>
-        {numeros_apostados.map((numero, index) => (
-          <span
-            key={index}
-            className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white'
-          >
-            {numero}
-          </span>
-        ))}
+        {numeros_apostados &&
+          numeros_apostados?.map((numero, index) => (
+            <span
+              key={index}
+              className='flex text-xl w-14 h-14 font-semibold rounded-md justify-center items-center bg-white'
+            >
+              {numero}
+            </span>
+          ))}
       </div>
     </div>
   )
