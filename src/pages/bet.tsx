@@ -231,7 +231,7 @@ const Bet = () => {
           </div>
 
           {allApostas.length ? (
-            allApostas.map((aposta, index) => (
+            allApostas?.map((aposta, index) => (
               <Apostas
                 key={index}
                 nome={aposta.nome}
