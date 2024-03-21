@@ -12,7 +12,7 @@ Primeiro, instale as dependências necessárias colocando o comando no terminal 
 npm install
 # ou
 yarn install
-
+```
 
 
 No mesmo terminal, rodar um dos seguintes comandos para iniciar o projeto.
