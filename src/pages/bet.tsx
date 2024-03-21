@@ -230,7 +230,7 @@ const Bet = () => {
             ) : null}
           </div>
 
-          {allApostas.length ? (
+          {allApostas && allApostas.length ? (
             allApostas?.map((aposta, index) => (
               <Apostas
                 key={index}
