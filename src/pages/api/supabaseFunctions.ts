@@ -1,5 +1,7 @@
-import { PropsApostas, PropsSorteio } from '@/Types/Props'
+import { PropsApostas, PropsSorteio, PropsVencedores } from '@/Types/Props'
 import supabase from './supabase'
+
+//Arquivo de funções do Supabase
 
 export const getApostas = async (): Promise<
   PropsApostas[] | undefined
@@ -76,4 +78,97 @@ export const getSorteios = async (): Promise<
   } else {
     return data
   }
+}
+
+export const getVencedores = async (): Promise<
+  PropsVencedores[] | undefined
+> => {
+  const { data, error } = await supabase
+    .from('Vencedores')
+    .select('*')
+    .order('id')
+
+  if (error) {
+    console.error('Erro ao buscar dados:', error.message)
+    return
+  } else {
+    return data
+  }
+}
+
+export const verifyVencedores = async (
+  idAposta: number,
+  idSorteio: number
+) => {
+  const { data: vencedoresExistente, error: errorVencedoresExistente } =
+    await supabase
+      .from('Vencedores')
+      .select('*')
+      .eq('id_aposta', idAposta)
+      .eq('id_sorteio', idSorteio)
+
+  if (errorVencedoresExistente) {
+    console.error(
+      'Erro ao verificar se o vencedor já existe:',
+      errorVencedoresExistente.message
+    )
+    return
+  } else {
+    return vencedoresExistente
+  }
+}
+
+export const saveVencedores = async (
+  idAposta: number,
+  idSorteio: number
+) => {
+  const { data: vencedor, error: errorVencedor } = await supabase
+    .from('Vencedores')
+    .insert([{ id_aposta: idAposta, id_sorteio: idSorteio }])
+
+  if (errorVencedor) {
+    console.error('Erro ao salvar o vencedor:', errorVencedor.message)
+    return
+  } else {
+    return vencedor
+  }
+}
+
+export const deleteAllVencedores = async () => {
+  const { data, error } = await supabase
+    .from('Vencedores')
+    .delete()
+    .neq('id', 0)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
+export const deleteAllSorteios = async () => {
+  const { data, error } = await supabase
+    .from('Sorteios')
+    .delete()
+    .neq('id', 0)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
+export const deleteAllApostas = async () => {
+  const { data, error } = await supabase
+    .from('Apostas')
+    .delete()
+    .neq('id', 0)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
 }

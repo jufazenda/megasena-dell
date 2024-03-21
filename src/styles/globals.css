@@ -11,3 +11,21 @@ body {
     text-wrap: balance;
   }
 }
+.confetti {
+  position: absolute;
+  animation: fall 3s linear;
+  transition: top 2s ease-in-out; 
+}
+
+.confetti.square {
+  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%);
+}
+.confetti.triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+  }
+}

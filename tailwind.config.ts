@@ -20,6 +20,7 @@ const config: Config = {
         'orange-light': '#F5680A',
         'blue-secundario': '#086788',
         light: '#FFF1D0',
+        'dark-shadow': 'rgba(0, 0, 0, 0.5)',
       },
       screens: {
         sm: '640px',

@@ -4,7 +4,6 @@ import Head from 'next/head'
 import Inputs from './components/Inputs'
 import Image from 'next/image'
 import Apostas from './components/Apostas'
-import supabase from './api/supabase'
 import { PropsApostas } from '@/Types/Props'
 import Link from 'next/link'
 import { TrevoIconWhite } from '../../public/TrevoWhite'
@@ -26,33 +25,72 @@ const Bet = () => {
   const [num5, setNum5] = useState(0)
   const [allApostas, setAllApostas] = useState<PropsApostas[]>([])
 
+  const espacoBranco = (str: string) => {
+    // Função para verificar se o campo está vazio
+    return /^\s*$/.test(str)
+  }
+
   const saveAposta = async (e: { preventDefault: () => void }) => {
-    const response = await saveApostas(
-      nome,
-      cpf,
-      num1,
-      num2,
-      num3,
-      num4,
-      num5
-    )
+    e.preventDefault()
 
-    if (response?.error) {
-      throw response.error
+    if (
+      espacoBranco(nome) ||
+      espacoBranco(cpf) ||
+      !nome ||
+      !cpf ||
+      !num1 ||
+      !num2 ||
+      !num3 ||
+      !num4 ||
+      !num5
+    ) {
+      // If para verificar se todos os campos estão preenchidos
+      alert('Preencha todos os campos.')
+      return
+    } else if (
+      // If para verificar se os números são iguais
+      num1 === num2 ||
+      num1 === num3 ||
+      num1 === num4 ||
+      num1 === num5 ||
+      num2 === num3 ||
+      num2 === num4 ||
+      num2 === num5 ||
+      num3 === num4 ||
+      num3 === num5 ||
+      num4 === num5
+    ) {
+      alert('Os números não podem ser iguais.')
+      return
     } else {
-      setNome('')
-      setCpf('')
-      setNum1(1)
-      setNum2(1)
-      setNum3(1)
-      setNum4(1)
-      setNum5(1)
-    }
+      // Caso não caia em nenhum if, a aposta é salva no banco de dados
+      const response = await saveApostas(
+        nome,
+        cpf,
+        num1,
+        num2,
+        num3,
+        num4,
+        num5
+      )
 
+      if (response?.error) {
+        throw response.error
+      } else {
+        setNome('')
+        setCpf('')
+        setNum1(1)
+        setNum2(1)
+        setNum3(1)
+        setNum4(1)
+        setNum5(1)
+      }
+    }
     getApostas()
   }
 
   const saveSorteio = async () => {
+    // Função para sortear os números principais da loteria e salvar no banco de dados
     const numAleatorio = (
       min: number,
       max: number,
@@ -79,6 +117,7 @@ const Bet = () => {
   }
 
   useEffect(() => {
+    // Função para buscar os valores do banco de dados ao carregar a página
     const fetchData = async () => {
       try {
         const apostasData = await getApostas()
@@ -91,9 +130,10 @@ const Bet = () => {
     }
 
     fetchData()
-  }, [])
+  }, [allApostas])
 
   const apostaSurpresa = (e: { preventDefault: () => void }) => {
+    // Função para gerar números aleatórios da aposta surpresa
     e.preventDefault()
     const numAleatorio = (
       min: number,
@@ -176,14 +216,18 @@ const Bet = () => {
             <span className=' flex gap-5 text-white text-4xl font-semibold'>
               {TrevoIconWhite} Apostas Registradas
             </span>
-            <Link href={'results'}>
-              <button
-                className='bg-orange-padrao text-white rounded-md py-3 font-bold px-16 hover:shadow-2xl hover:bg-orange-light'
-                onClick={saveSorteio}
+            {allApostas.length ? (
+              <Link
+                href={{ pathname: '/results', query: { from: 'bet' } }}
               >
-                Sortear
-              </button>
-            </Link>
+                <button
+                  className='bg-orange-padrao text-white rounded-md py-3 font-bold px-16 hover:shadow-2xl hover:bg-orange-light'
+                  onClick={saveSorteio}
+                >
+                  Sortear
+                </button>
+              </Link>
+            ) : null}
           </div>
 
           {allApostas.length ? (
