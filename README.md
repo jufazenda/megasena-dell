@@ -15,7 +15,7 @@ yarn install
 ```
 
 
-No mesmo terminal, rodar um dos seguintes comandos para iniciar o projeto.
+No mesmo terminal, rodar o comando para iniciar o projeto.
 
 ```bash
 npm run dev
